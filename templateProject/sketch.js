@@ -1,19 +1,7 @@
 function setup() {
-  noCanvas();
+  // put setup code here
+}
 
-  let button = select('#submit');
-  let user_text = select('#user_text');
-  let output = select('#output');
-
-  user_text.input(echoFeed);
-  button.mousePressed(newNote);
-
-  function echoFeed() {
-    output.html(user_text.value());
-  }
-  
-  function newNote(){
-	  createP(user_text.value());
-  }
-
+function draw() {
+  // put drawing code here
 }
