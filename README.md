@@ -1,3 +1,3 @@
 # p5js_sketch
 
-https://thefloatingcorn.github.io/p5js-cc/
+https://thefloatingcorn.github.io/p5js-pages/
