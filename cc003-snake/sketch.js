@@ -11,12 +11,13 @@ function setup() {
 
 function draw() {
     background(51);
-    s.update();
-    s.show();
 	
 	if (s.eat(food) == true) {
 		pickLocation();
 	}
+	s.death();
+    s.update();
+    s.show();
 	
 	fill(255, 0, 100);
 	rect(food.x, food.y, scl, scl);
@@ -61,6 +62,19 @@ function Snake(){
 		this.xspeed = x;
 		this.yspeed = y;
 	}
+	
+	this.death = function() {
+		for (var i = 0; i< this.tail.length; i++) {
+			var pos = this.tail[i];
+			var d = dist(this.x, this.y, pos.x, pos.y);
+			if (d < 1) {
+				console.log('starting over'); 
+				this.total = 0;
+				this.tail = [];
+			}
+		}
+	}
+	
     this.update = function() {
 		if (this.total === this.tail.length) {
 			for (var i = 0; i < this.tail.length-1; i++) {
