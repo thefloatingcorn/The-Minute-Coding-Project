@@ -31,13 +31,13 @@ function pickLocation() {
 }
 
 function keyPressed() {
-	if (keyCode === UP_ARROW) {
+	if ( (keyCode === UP_ARROW) && (s.yspeed != 1) ) {
 		s.dir(0,-1);
-	} else if (keyCode === DOWN_ARROW) {
+	} else if ( (keyCode === DOWN_ARROW) && (s.yspeed != -1) ) {
 		s.dir(0,1);
-	} else if (keyCode === LEFT_ARROW) {
+	} else if ( (keyCode === LEFT_ARROW) && (s.xspeed != 1) ) {
 		s.dir(-1,0);
-	} else if (keyCode === RIGHT_ARROW) {
+	} else if ( (keyCode === RIGHT_ARROW) && (s.xspeed != -1) ) {
 		s.dir(1,0);
 	}
 }
@@ -81,14 +81,16 @@ function Snake(){
 				this.tail[i] = this.tail[i+1];
 			}
 		}
-		this.tail[this.total-1] = createVector(this.x, this.y);
-		
+		if (this.total > 0) {
+			this.tail[this.total-1] = createVector(this.x, this.y);
+		}
         this.x = this.x + this.xspeed*scl;
         this.y = this.y + this.yspeed*scl;
 	  
 	    this.x = constrain(this.x, 0, width - scl);
 	    this.y = constrain(this.y, 0, height - scl);
     }
+	
     this.show = function() {
         fill(255);
 		for (var i = 0; i < this.tail.length; i++) { 
