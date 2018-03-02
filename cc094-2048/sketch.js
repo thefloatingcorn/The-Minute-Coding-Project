@@ -59,19 +59,33 @@ function copyGrid(grid) {
 	return extra;
 }
 	
+function flip(grid) {
+	for (let i = 0; i < 4; i++) {
+		grid[i].reverse();
+	}
+}
 	
 	
 //one "move"
 function keyPressed() {
-	if (key == ' ') {
-		let past = copyGrid(grid);
-		for (let i = 0; i < 4; i++) {
-			grid[i] = operate(grid[i]);
-		}
-		let changed = compare(past, grid);
-		if (changed) {
-			addNumber();
-		}
+	let flipped = false;
+	if (keyCode === DOWN_ARROW){
+		// DO NOTHING
+	} else if (keyCode === UP_ARROW) {
+		flip(grid);
+		flipped = true;
+	}
+	let past = copyGrid(grid);
+	for (let i = 0; i < 4; i++) {
+		grid[i] = operate(grid[i]);
+	}
+	let changed = compare(past, grid);
+	
+	if (flipped) {
+		flip(grid);
+	}
+	if (changed) {
+		addNumber();
 	}
 }
 
