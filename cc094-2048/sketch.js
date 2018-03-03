@@ -1,4 +1,23 @@
 let grid;
+let score = 0;
+
+function isGameOver() {
+	for (let i = 0; i < 4; i++) {
+		for (let j = 0; j < 4; j++) {
+			if (grid[i][j] == 0) {
+				return false;
+			}
+			if (i !== 3 && grid[i][j] === grid[i+1][j] ) {
+				return false;
+			}			
+			if (j !== 3 && grid[i][j] === grid[i][j+1] ) {
+				return false;
+			}
+			
+		}
+	}
+	return true;
+}
 
 function blankGrid() {
 	return 	[
@@ -11,11 +30,12 @@ function blankGrid() {
 
 function setup() {
     createCanvas(400,400);
+	noLoop();
 	grid = blankGrid();
 //	console.table(grid);
 	addNumber();
 	addNumber();
-//	console.table(grid);
+	updateCanvas();
 }
 
 function addNumber() {
@@ -117,6 +137,11 @@ function keyPressed() {
 		if (changed) {
 			addNumber();
 		}
+		updateCanvas();
+		let gameover = isGameOver();
+		if (gameover) {
+			console.log("GAME OVER");
+		}
 	}
 }
 
@@ -127,9 +152,10 @@ function operate(row) {
 	return row;
 }
 
-function draw() {
+function updateCanvas() {
 	background(255);
 	drawGrid();
+	select('#score').html(score);
 }
 
 // making new array
@@ -148,6 +174,7 @@ function combine(row) {
 		let b = row[i-1];
 		if (a == b) {
 			row[i] = a + b;
+			score += row[i];
 			row[i-1] = 0;
 		}
 	}
@@ -165,9 +192,12 @@ function drawGrid() {
 			let val = grid[i][j];
 			if (val !== 0) {
 				textAlign(CENTER, CENTER);
-				textSize(64);
+				let s = "" + val;
+				let len = s.length - 1;
+				let sizes = [64, 64, 32, 16];
 				fill(0);
 				noStroke();
+				textSize(sizes[len]);
 				text(val, i*w+w/2, j*w+w/2);
 			}			
 		}
