@@ -18,21 +18,29 @@ function keyPressed() {
 	let flipped = false;
 	let rotated = false;
 	let played = true;
-	if (keyCode === DOWN_ARROW){
+	
+	switch (keyCode) {
+		case DOWN_ARROW:
 		// DO NOTHING
-	} else if (keyCode === UP_ARROW) {
-		grid = flipGrid(grid);
-		flipped = true;
-	} else if (keyCode === RIGHT_ARROW) {
-		grid = rotateGrid(grid);
-		rotated = true;
-	} else if (keyCode === LEFT_ARROW) {
-		grid = rotateGrid(grid);
-		grid = flipGrid(grid);
-		flipped = true;
-		rotated = true;
-	} else {
-		played = false;
+		//console.log("down arrow");
+		break;
+		case UP_ARROW:
+			grid = flipGrid(grid);
+			flipped = true;
+		break;
+		case RIGHT_ARROW:
+			grid = transposeGrid(grid, 1);
+			rotated = true;
+		break;
+		case LEFT_ARROW:
+			grid = transposeGrid(grid, 1);
+			grid = flipGrid(grid);
+			rotated = true;
+			flipped = true;
+		break;
+		default:
+			played = false;
+			break;
 	}
 		
 	if (played) {
@@ -46,9 +54,7 @@ function keyPressed() {
 			grid = flipGrid(grid);
 		}
 		if (rotated) {
-			grid = rotateGrid(grid);
-			grid = rotateGrid(grid);
-			grid = rotateGrid(grid);
+			grid = transposeGrid(grid, -1);
 		}
 		
 		if (changed) {

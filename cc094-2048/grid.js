@@ -35,11 +35,15 @@ function flipGrid(grid) {
 	return grid;
 }
 
-function rotateGrid(grid) {
+function transposeGrid(grid, direction) {
 	let newGrid = blankGrid();
 	for (let i = 0; i < 4; i++) {
 		for (let j = 0; j < 4; j++) {
-			newGrid[i][j] = grid[j][i];
+			if (direction == 1) {
+				newGrid[i][j] = grid[j][i];
+			} else {
+				newGrid[j][i] = grid[i][j];
+			}
 		}
 	}
 	return newGrid;
@@ -60,7 +64,7 @@ function addNumber() {
 	if (options.length > 0) {
 		let spot = random(options);
 		let r = random(1);
-		grid[spot.x][spot.y] = r > 0.5 ? 2 : 4;
+		grid[spot.x][spot.y] = r > 0.1 ? 2 : 4;
 		grid_new[spot.x][spot.y] = 1;
 	}
 }
