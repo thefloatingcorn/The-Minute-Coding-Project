@@ -1,10 +1,12 @@
 let grid;
+let grid_new;
 let score = 0;
 
 function setup() {
     createCanvas(400,400);
 	noLoop();
 	grid = blankGrid();
+	grid_new = blankGrid();
 //	console.table(grid);
 	addNumber();
 	addNumber();
@@ -78,13 +80,20 @@ function drawGrid() {
 			strokeWeight(2);
 			let val = grid[i][j];
 			let s = val.toString();
-			stroke(0);
+			if (grid_new[i][j] === 1) {
+				stroke(200, 0, 200);
+				strokeWeight(16);
+				grid_new[i][j] = 0;
+			} else {
+				strokeWeight(4);
+				stroke(0);
+			}
 			if (val != 0) {		
 				fill(colorsSizes[s].color);
 			} else {
 				noFill();
 			}
-			rect(i*w,j*w,w,w);
+			rect(i*w,j*w,w,w,30);
 			if (val !== 0) {
 				textAlign(CENTER, CENTER);
 				noStroke();

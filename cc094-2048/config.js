@@ -7,11 +7,11 @@
 let colorsSizes = {
 	"2": {
 		size: 64, 
-		color: "#F35956"
+		color: "#FFF999"
 	}, 	
 	"4": {
 		size: 64, 
-		color: "#F35956"
+		color: "#CCF9AA"
 	}, 	
 	"8": {
 		size: 64, 
