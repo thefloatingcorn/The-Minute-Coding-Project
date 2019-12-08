@@ -1,24 +1,24 @@
 var s;
-var scl = 20; 
+var scl = 20;
 var food;
 
 function setup() {
-    createCanvas(600,600);
-    s = new Snake();
+  createCanvas(600,600);
+  s = new Snake();
 	frameRate(10);
 	pickLocation();
 }
 
 function draw() {
-    background(51);
-	
+  background(51);
+
 	if (s.eat(food) == true) {
 		pickLocation();
 	}
 	s.death();
-    s.update();
-    s.show();
-	
+  s.update();
+  s.show();
+
 	fill(255, 0, 100);
 	rect(food.x, food.y, scl, scl);
 }
@@ -41,14 +41,15 @@ function keyPressed() {
 		s.dir(1,0);
 	}
 }
+
 function Snake(){
-    this.x = 0;
-    this.y = 0;
-    this.xspeed = 1;
-    this.yspeed = 0;
+  this.x = 0;
+  this.y = 0;
+  this.xspeed = 1;
+  this.yspeed = 0;
 	this.total = 0;
 	this.tail = [];
-	
+
 	this.eat = function(pos) {
 		var d = dist(this.x, this.y, pos.x, pos.y);
 		if (d < 1) {
@@ -58,61 +59,62 @@ function Snake(){
 			return false;
 		}
 	}
+
 	this.dir = function(x, y) {
 		this.xspeed = x;
 		this.yspeed = y;
 	}
-	
+
 	this.death = function() {
-		//console.log(this.x + ',' + this.y); 
-		if ( (this.x <= width - scl) && (this.x >= 0) 
+		//console.log(this.x + ',' + this.y);
+		if ( (this.x <= width - scl) && (this.x >= 0)
 		&& (this.y <= height - scl) && (this.y >= 0) ) {
 			for (var i = 0; i< this.tail.length; i++) {
 				var pos = this.tail[i];
 				var d = dist(this.x, this.y, pos.x, pos.y);
 				if (d < 1) {
-					console.log('starting over'); 
+					console.log('starting over');
 					this.total = 0;
 					this.tail = [];
 					this.x = 0;
 					this.y = 0;
 					this.xspeed = 1;
-					this.yspeed = 0;				
+					this.yspeed = 0;
 				}
 			}
 		}
 		else {
-			console.log('starting over'); 
+			console.log('starting over');
 			this.total = 0;
 			this.tail = [];
 			this.x = 0;
 			this.y = 0;
 			this.xspeed = 1;
-			this.yspeed = 0;		
+			this.yspeed = 0;
 		}
 	}
-	
-    this.update = function() {
-		if (this.total === this.tail.length) {
-			for (var i = 0; i < this.tail.length-1; i++) {
-				this.tail[i] = this.tail[i+1];
-			}
-		}
+
+  this.update = function() {
+    if (this.total === this.tail.length) {
+		  for (var i = 0; i < this.tail.length-1; i++) {
+			this.tail[i] = this.tail[i+1];
+		  }
+    }
 		if (this.total > 0) {
 			this.tail[this.total-1] = createVector(this.x, this.y);
 		}
-        this.x = this.x + this.xspeed*scl;
-        this.y = this.y + this.yspeed*scl;
-	  
-//	    this.x = constrain(this.x, 0, width - scl);
-//	    this.y = constrain(this.y, 0, height - scl);
-    }
-	
-    this.show = function() {
-        fill(255);
-		for (var i = 0; i < this.tail.length; i++) { 
+    this.x = this.x + this.xspeed*scl;
+    this.y = this.y + this.yspeed*scl;
+
+//	this.x = constrain(this.x, 0, width - scl);
+//	this.y = constrain(this.y, 0, height - scl);
+  }
+
+  this.show = function() {
+    fill(255);
+		for (var i = 0; i < this.tail.length; i++) {
 			rect(this.tail[i].x, this.tail[i].y, scl, scl);
 		}
 		rect(this.x, this.y, scl, scl);
-    }	
+  }
 }
